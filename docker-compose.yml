@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  kotlin-restful-learn-postgres:
+    container_name: "kotlin-restful-learn-postgres"
+    image: postgres
+    ports:
+    - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: kotlin
+      POSTGRES_USER: kotlin
+      POSTGRES_DB: kotlin-restful-learn
