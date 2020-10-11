@@ -1,7 +1,9 @@
 package sulthonuladib.kotlin.restful.service.impl
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import sulthonuladib.kotlin.restful.entity.Product
+import sulthonuladib.kotlin.restful.error.NotFoundException
 import sulthonuladib.kotlin.restful.model.CreateProductRequest
 import sulthonuladib.kotlin.restful.model.ProductResponse
 import sulthonuladib.kotlin.restful.repository.ProductRepository
@@ -25,6 +27,19 @@ class ProductServiceImpl(val productRepository: ProductRepository, val validatio
 
         productRepository.save(product)
 
+        return convertProductToResponse(product)
+    }
+
+    override fun get(id: String): ProductResponse {
+        val product = productRepository.findByIdOrNull(id)
+        if ( product == null) {
+            throw NotFoundException()
+        } else {
+            return convertProductToResponse(product)
+        }
+    }
+
+    private fun convertProductToResponse(product: Product): ProductResponse {
         return ProductResponse(
                 id = product.id,
                 name = product.name,
