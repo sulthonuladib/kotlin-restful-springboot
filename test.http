@@ -1,0 +1,35 @@
+### Create Product with success example
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "A0001",
+  "name": "ASUS A455LF",
+  "price": 6000000,
+  "quantity": 10
+}
+
+### Create Product with invalid data example
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "",
+  "name": "",
+  "price": 0,
+  "quantity": -10
+}
+
+### Get Product with success example
+
+GET http://localhost:8080/api/products/A0001
+Content-Type: application/json
+
+### Get Product with not found example
+
+GET http://localhost:8080/api/products/NGAWUR
+Content-Type: application/json
