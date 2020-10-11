@@ -3,6 +3,7 @@ package sulthonuladib.kotlin.restful.controller
 import org.springframework.web.bind.annotation.*
 import sulthonuladib.kotlin.restful.model.CreateProductRequest
 import sulthonuladib.kotlin.restful.model.ProductResponse
+import sulthonuladib.kotlin.restful.model.UpdateProductRequest
 import sulthonuladib.kotlin.restful.model.WebResponse
 import sulthonuladib.kotlin.restful.service.ProductService
 
@@ -36,6 +37,25 @@ class ProductController(val productService: ProductService) {
                code = 200,
                status = "Success",
                data = productResponse
+        )
+    }
+
+    @PutMapping(
+            value = ["/api/products/{idProduct}"],
+            produces = ["application/json"],
+            consumes = ["application/json"]
+    )
+    fun updateProduct(
+            @PathVariable("idProduct")
+            @RequestBody id: String,
+            updateProductRequest: UpdateProductRequest
+    ): WebResponse<ProductResponse> {
+        val productResponse = productService.update(id, updateProductRequest)
+
+        return WebResponse(
+                code = 200,
+                status = "Success",
+                data = productResponse
         )
     }
 }

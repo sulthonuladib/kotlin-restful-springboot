@@ -6,6 +6,7 @@ import sulthonuladib.kotlin.restful.entity.Product
 import sulthonuladib.kotlin.restful.error.NotFoundException
 import sulthonuladib.kotlin.restful.model.CreateProductRequest
 import sulthonuladib.kotlin.restful.model.ProductResponse
+import sulthonuladib.kotlin.restful.model.UpdateProductRequest
 import sulthonuladib.kotlin.restful.repository.ProductRepository
 import sulthonuladib.kotlin.restful.service.ProductService
 import sulthonuladib.kotlin.restful.validation.ValidationUtil
@@ -37,6 +38,27 @@ class ProductServiceImpl(val productRepository: ProductRepository, val validatio
         } else {
             return convertProductToResponse(product)
         }
+    }
+
+    override fun update(id: String, updateProductRequest: UpdateProductRequest): ProductResponse {
+        val product = productRepository.findByIdOrNull(id)
+
+        if ( product == null) {
+            throw NotFoundException()
+        }
+
+        validationUtil.validate(updateProductRequest)
+
+        product.apply {
+            name = updateProductRequest.name!!
+            price = updateProductRequest.price!!
+            quantity = updateProductRequest.quantity!!
+            updatedAt = Date()
+        }
+
+        productRepository.save(product)
+
+        return convertProductToResponse(product)
     }
 
     private fun convertProductToResponse(product: Product): ProductResponse {

@@ -33,3 +33,38 @@ Content-Type: application/json
 
 GET http://localhost:8080/api/products/NGAWUR
 Content-Type: application/json
+
+### Update product with success example
+
+PUT http://localhost:8080/api/products/A0001
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "MacBook Pro 16 inch 2019",
+  "price": 40000000,
+  "quantity": 5
+}
+
+### Update product with not found example
+
+PUT http://localhost:8080/api/products/NGAWUR
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "MacBook Pro 16 inch 2019",
+  "price": 40000000,
+  "quantity": 5
+}
+### Update product with invalid body example
+
+PUT http://localhost:8080/api/products/A0001
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "",
+  "price": 0,
+  "quantity": -5
+}
